@@ -10,7 +10,7 @@ double dist(const Rect & rect1, const Rect & rect2)
 void drawFace1(Mat& src)
 {
 	CascadeClassifier face_cascade_alt;
-	face_cascade_alt.load("C:/opencv/sources/data/haarcascades/haarcascade_frontalface_alt.xml");
+	face_cascade_alt.load("/home/laetitia/opencv-3.1.0/data/haarcascades/haarcascade_frontalface_alt.xml");
 	if (face_cascade_alt.empty())
 	{
 		cout << "couldn't load Cascade Classifier" << endl;
@@ -30,7 +30,7 @@ void drawFace1(Mat& src)
 void drawFace2(Mat& src)
 {
 	CascadeClassifier face_cascade_alt2;
-	face_cascade_alt2.load("C:/opencv/sources/data/haarcascades/haarcascade_frontalface_alt2.xml");
+	face_cascade_alt2.load("/home/laetitia/opencv-3.1.0/data/haarcascades/haarcascade_frontalface_alt2.xml");
 	if (face_cascade_alt2.empty())
 	{
 		cout << "couldn't load Cascade Classifier" << endl;
@@ -50,7 +50,7 @@ void drawFace2(Mat& src)
 void findFace(Mat& src, Rect& face)
 {
 	CascadeClassifier face_cascade_alt2;
-	face_cascade_alt2.load("C:/opencv/sources/data/haarcascades/haarcascade_frontalface_alt2.xml");
+	face_cascade_alt2.load("/home/laetitia/opencv-3.1.0/data/haarcascades/haarcascade_frontalface_alt2.xml");
 	if (face_cascade_alt2.empty())
 	{
 		cout << "couldn't load Cascade Classifier" << endl;
@@ -88,8 +88,8 @@ void drawCircles(Mat& src)
 void drawEyes(Mat& src)
 {
 	CascadeClassifier eye_cascade_right, eye_cascade_left;
-	eye_cascade_left.load("C:/opencv/sources/data/haarcascades/haarcascade_lefteye_2splits.xml");
-	eye_cascade_right.load("C:/opencv/sources/data/haarcascades/haarcascade_righteye_2splits.xml");
+	eye_cascade_left.load("/home/laetitia/opencv-3.1.0/data/haarcascades/haarcascade_lefteye_2splits.xml");
+	eye_cascade_right.load("/home/laetitia/opencv-3.1.0/data/haarcascades/haarcascade_righteye_2splits.xml");
 	if (eye_cascade_right.empty())
 	{
 		cout << "couldn't load Cascade Classifier" << endl;
@@ -114,7 +114,7 @@ void drawEyes(Mat& src)
 int findLeftEye(Mat& src, const Rect & face, Rect & leftEye)
 {
 	CascadeClassifier eye_cascade_left;
-	eye_cascade_left.load("C:/opencv/sources/data/haarcascades/haarcascade_lefteye_2splits.xml");
+	eye_cascade_left.load("/home/laetitia/opencv-3.1.0/data/haarcascades/haarcascade_lefteye_2splits.xml");
 	if (eye_cascade_left.empty())
 	{
 		cout << "couldn't load Cascade Classifier" << endl;
@@ -135,7 +135,7 @@ int findLeftEye(Mat& src, const Rect & face, Rect & leftEye)
 		leftEye = leftEye &= Rect(0, 0, src.cols, src.rows);
 		return 1;
 	}
-	
+
 	else return -1;
 }
 
@@ -144,7 +144,7 @@ int findRightEye(Mat& src, const Rect & face,Rect & rightEye)
 {
 
 	CascadeClassifier eye_cascade_right;
-	eye_cascade_right.load("C:/opencv/sources/data/haarcascades/haarcascade_righteye_2splits.xml");
+	eye_cascade_right.load("/home/laetitia/opencv-3.1.0/data/haarcascades/haarcascade_righteye_2splits.xml");
 	if (eye_cascade_right.empty())
 	{
 		cout << "couldn't load Cascade Classifier" << endl;

@@ -22,9 +22,9 @@ int main(int, char**)
 {
 	//*********INITIALISATION DES VARIABLES ************************//
 	String WELCOME_STRING = "^^^^^^^^^^^^^^^^^^Bienvenue sur IScroll.^^^^^^^^^^^^^^^^^^ \n IScroll va détecter vos yeux et votre visage pour suivre la direction de votre regard sur l'écran. ";
-	cout << WELCOME_STRING << endl; 
+	cout << WELCOME_STRING << endl;
 	Mat frame;
-	Size oldsize; 
+	Size oldsize;
 	Point bary, center;
 	Rect face, lefteye, righteye;
 	Tracker trackFace = Tracker("face");
@@ -38,7 +38,7 @@ int main(int, char**)
 	bool leftfound = false, rightfound = false;
 	cout << "Initialisation, merci de patienter." << endl;
 
-	//***************DETECTION DU VISAGE ET DES YEUX ********************// 
+	//***************DETECTION DU VISAGE ET DES YEUX ********************//
 	while (true)
 	{
 		cout << ".";
@@ -46,9 +46,8 @@ int main(int, char**)
 		imshow("frame", frame);
 		char c = (char)waitKey(10);
 			findFace(frame, face);
-			
+
 			trackFace.init(frame, face);
-			cout << "Visage détecté! " << endl;
 			if (waitKey(30) >= 0)
 			{
 				break;
@@ -58,7 +57,7 @@ int main(int, char**)
 					imshow("LEFT EYE", frame(lefteye));
 					//leftEye.init(frame, lefteye);
 					leftfound = true;
-					
+
 					if (leftfound && rightfound)
 					{
 						trackGaze.init(frame, lefteye, righteye);
@@ -77,10 +76,10 @@ int main(int, char**)
 						break;
 					}
 				}
-				
+
 		}
-	cout << "Initialisation terminée! " << endl; 
-	cout << "Début du calibrage... regardez devant vous au centre de l'écran et appuyez sur la touche c. " << endl; 
+	cout << "Initialisation terminée! " << endl;
+	cout << "Début du calibrage... regardez devant vous au centre de l'écran et appuyez sur la touche c. " << endl;
 
 	//******************TRACKING DU VISAGE ET DES YEUX: ATTENTE DU SIGNAL DE CALIBRAGE POUR DETERMINER LE POINT DE REFERENCE ***************//
 		while (true)
@@ -91,7 +90,7 @@ int main(int, char**)
 			//leftEye.track(frame);
 			trackGaze.track(frame, trackFace.trackWindow);
 			//resize(frame, frame,frame.size() * 2);
-			
+
 				bary = trackGaze.getBary(trackFace.trackWindow);
 				center = Point(trackFace.trackWindow.x + trackFace.trackWindow.width / 2, trackFace.trackWindow.y + trackFace.trackWindow.height / 2);
 				circle(frame, center, 3, Scalar(0, 125, 10));
@@ -99,15 +98,15 @@ int main(int, char**)
 				imshow("cap", frame);
 
 			if (waitKey(30) =='c')
-				{		
+				{
 					oldsize = trackFace.trackWindow.size();
 					break;
 				}
 
 		}
 		cout << "Calibrage terminé... " << endl;
-		
-		Mat game = imread("image.jpg", CV_LOAD_IMAGE_COLOR);
+
+		Mat game = imread("../image.jpg", CV_LOAD_IMAGE_COLOR);
 		Rect zone;
 		Rect limits = Rect(0, 0, game.cols, game.rows);
 		int x = 125, y = 125;
@@ -122,7 +121,7 @@ int main(int, char**)
 			cap >> frame;
 			trackFace.track(frame);
 			trackGaze.track(frame, trackFace.trackWindow);
-			
+
 			Point temp = trackGaze.getBary(trackFace.trackWindow);
 			center = Point(trackFace.trackWindow.x + trackFace.trackWindow.width / 2, trackFace.trackWindow.y + trackFace.trackWindow.height / 2);
 			circle(frame, center, 3, Scalar(0, 125, 10));
@@ -143,7 +142,7 @@ int main(int, char**)
 				}
 				if (temp.x - bary.x >= threshx && dx>=dy )
 				{
-				
+
 					x = max(x - step, step);
 					zone = Rect(Point(x, y), Size(1000, 1000))&limits;
 					cout << "Moved to the left" << endl;
@@ -165,7 +164,7 @@ int main(int, char**)
 				}
 				imshow("game", game(zone));
 			}
-			
+
 			if (waitKey(30) == 'c')
 			{
 				cout << "RECALIBRATING" << endl;
@@ -181,4 +180,3 @@ int main(int, char**)
 			}
 		}
 	}
-
